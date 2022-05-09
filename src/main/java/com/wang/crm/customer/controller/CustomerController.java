@@ -1,6 +1,5 @@
 package com.wang.crm.customer.controller;
 
-
 import com.wang.crm.annotation.RequiredPermission;
 import com.wang.crm.base.BaseController;
 import com.wang.crm.base.ResultInfo;

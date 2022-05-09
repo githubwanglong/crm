@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="~{common.html}"></div>
+</head>
+<body class="childrenBody">
+<form class="layui-form" style="width:80%;">
+    <!--流失客户的id-->
+    <input name="lossId" type="hidden" th:value="${lossId}"/>
+    <!--更新暂缓的id-->
+    <input name="id" type="hidden" th:value="${customerRep?.id}"/>
+    <div class="layui-form-item layui-row layui-col-xs12">
+        <label class="layui-form-label">暂缓措施</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input userName"
+                   lay-verify="required" name="measure" id="measure"  th:value="${customerRep?.measure}" placeholder="请输入暂缓措施">
+        </div>
+    </div>
+
+    <br/>
+    <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-lg" lay-submit=""
+                    lay-filter="addOrUpdateCustomerRep">确认
+            </button>
+            <button class="layui-btn layui-btn-lg layui-btn-normal" id="closeBtn">取消</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" th:src="@{/js/customerLoss/customer.rep.add.update.js}"></script>
+</body>
+</html>

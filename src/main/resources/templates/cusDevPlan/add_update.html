@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:include="~{common.html}"></div>
+    </head>
+    <body class="childrenBody">
+        <form class="layui-form" style="width:80%;">
+            <!--开发计划项id-->
+            <input name="id" type="hidden" th:value="${cusDevPlan?.id}"/>
+            <!--营销机会的id 后台设置到作用域中-->
+            <input name="saleChanceId" type="hidden" th:value="${sId}"/>
+            <div class="layui-form-item layui-row layui-col-xs12">
+                <label class="layui-form-label">计划项内容</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input userName" lay-verify="required" name="planItem"
+                           id="planItem" th:value="${cusDevPlan?.planItem}" placeholder="请输入计划项内容">
+                </div>
+            </div>
+            <div class="layui-form-item layui-row layui-col-xs12">
+                <label class="layui-form-label">计划时间</label>
+                <div class="layui-input-block">
+                        <input type="text" class="layui-input userName" lay-verify="required" name="planDate"
+                               id="planDate" placeholder="请选择计划项时间" th:value="${#dates.format(cusDevPlan?.planDate, 'yyyy-MM-dd')}" readonly>
+                </div>
+            </div>
+            <div class="layui-form-item layui-row layui-col-xs12">
+                <label class="layui-form-label">执行效果</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input userEmail" lay-verify="required" name="exeAffect"
+                           th:value="${cusDevPlan?.exeAffect}" id="exeAffect" placeholder="请输入执行效果">
+                </div>
+            </div>
+
+
+            <br/>
+            <div class="layui-form-item layui-row layui-col-xs12">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-lg" lay-submit="" lay-filter="addOrUpdateCusDevPlan">确认</button>
+                    <button class="layui-btn layui-btn-lg layui-btn-normal" id="closeBtn">取消</button>
+                </div>
+            </div>
+        </form>
+
+    <script type="text/javascript" th:src="@{/js/cusDevPlan/add.update.js}"></script>
+    </body>
+</html>

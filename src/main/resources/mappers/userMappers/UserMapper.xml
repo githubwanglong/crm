@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.crm.user.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.wang.crm.user.domain.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
+    <result column="true_name" jdbcType="VARCHAR" property="trueName" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="is_valid" jdbcType="INTEGER" property="isValid" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_name, user_pwd, true_name, email, phone, is_valid, create_date, update_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="User">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wang.crm.user.domain.User">
+    insert into t_user (id, user_name, user_pwd, 
+      true_name, email, phone, 
+      is_valid, create_date, update_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
+      #{trueName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{isValid,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+  <!--添加用户-->
+  <!--
+      添加操作默认返回受影响行数，但可以通过设置返回主键
+      useGeneratedKeys：设置为true，表示返回主键
+      keyProperty：主键返回后对应实体类的哪个属性
+      keyColumn：数据库表中主键是哪个字段
+
+      返回的主键会自动注入到传递过来的对象中。
+  -->
+  <insert id="insertSelective" parameterType="com.wang.crm.user.domain.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userPwd != null">
+        user_pwd,
+      </if>
+      <if test="trueName != null">
+        true_name,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="trueName != null">
+        #{trueName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wang.crm.user.domain.User">
+    update t_user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="trueName != null">
+        true_name = #{trueName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wang.crm.user.domain.User">
+    update t_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      true_name = #{trueName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      is_valid = #{isValid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--根据用户名和密码查询用户，返回用户对象。-->
+  <select id="queryUserByNameAndPassword" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List"/>
+    from
+        t_user
+    where binary
+        is_valid = 1 and user_name = #{userName} and user_pwd = #{userPwd}
+  </select>
+
+  <!--查询所有销售人员-->
+  <select id="queryAllSales" resultType="Map">
+    SELECT
+      u.id, u.true_name as name
+    from
+      t_user u
+    left join
+      t_user_role ur
+    on
+      u.id = ur.user_id
+    join
+      t_role r
+    on
+      r.id = ur.role_id
+    where
+      u.is_valid = 1
+    and
+      r.is_valid = 1
+    and
+      r.role_name = '销售'
+
+  </select>
+
+
+
+  <!--查询所有客户经理-->
+  <select id="queryCustomerManagers" resultType="Map">
+    SELECT
+      u.id, u.true_name as name
+    from
+      t_user u
+        left join
+      t_user_role ur
+      on
+        u.id = ur.user_id
+        join
+      t_role r
+      on
+        r.id = ur.role_id
+    where
+      u.is_valid = 1
+      and
+      r.is_valid = 1
+      and
+      r.role_name = '客户经理'
+
+  </select>
+
+  <!--多条件查询-->
+  <select id="selectByParams" resultType="User">
+    select
+        <include refid="Base_Column_List" />
+    from
+        t_user
+    <where>
+        is_valid = 1
+      <if test="userName != null and userName != ''">
+         and user_name like "%" #{userName} "%"
+      </if>
+      <if test="trueName != null and trueName != ''">
+        and true_name like "%" #{trueName} "%"
+      </if>
+      <if test="email != null and email != ''">
+        and email like "%" #{email} "%"
+      </if>
+      <if test="phone != null and phone != ''">
+        and phone like "%" #{phone} "%"
+      </if>
+    </where>
+  </select>
+
+  <!--根据用户名查询用户-->
+  <select id="selectByUserName" resultType="User">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    t_user
+    where binary
+    user_name = #{userName}
+  </select>
+
+  <!--删除用户-->
+  <update id="deleteBatch">
+    update
+        t_user
+    set
+        is_valid = 0
+    where
+        id
+    in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+          #{id}
+        </foreach>
+  </update>
+</mapper>

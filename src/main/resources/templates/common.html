@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script type="text/javascript" th:inline="javascript">
+        var ctx = [[${#request.getContextPath()}]]
+    </script>
+    <link rel="icon" th:href="@{/images/logo02.png}">
+    <link rel="stylesheet" th:href="@{/lib/layui-v2.5.5/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/css/layuimini.css}" media="all">
+    <link rel="stylesheet" th:href="@{/lib/font-awesome-4.7.0/css/font-awesome.min.css}" media="all">
+    <link rel="stylesheet" th:href="@{/css/formSelects-v4.css}" media="all">
+    <link rel="stylesheet" th:href="@{/css/public.css}" media="all">
+    <script th:src="@{/lib/layui-v2.5.5/layui.js}" charset="utf-8"></script>
+    <script th:src="@{/js/lay-config.js}" charset="utf-8"></script>
+</body>
+</html>

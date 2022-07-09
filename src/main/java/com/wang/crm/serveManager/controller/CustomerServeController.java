@@ -6,7 +6,6 @@ import com.wang.crm.base.ResultInfo;
 import com.wang.crm.serveManager.domain.CustomerServe;
 import com.wang.crm.serveManager.query.CustomerServeQuery;
 import com.wang.crm.serveManager.service.CustomerServeService;
-import com.wang.crm.user.domain.User;
 import com.wang.crm.user.model.UserModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
